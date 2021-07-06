@@ -11,15 +11,102 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Document</title>
 </head>
+
 <body>
-    <header class="container-fluid bg-dark">
+    <!--header-->
+    <header class="justify-content: center">
         <h1>On The Go Adventures</h1>
     </header>
-    
+    <main>
+        <!--Image slideshow-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="slider">
+                    <ul class="slides">
+                        <li>
+                            <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                            <div class="caption center-align">
+                                <h3>This is our big Tagline!</h3>
+                                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                            <div class="caption left-align">
+                            <h3>Left Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                            <div class="caption right-align">
+                            <h3>Right Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                            <div class="caption center-align">
+                            <h3>This is our big Tagline!</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>    
+        <div>
+            <!--search area-->
+            <div class="container">
+                <div class="destination-search">
+                    <h4>Where are you heading?</h4>
+                    <div class="input-container">
+                        <input type="text" placeholder="Destination" id="input">
+                        <button class="btn" type="button" id="search-destination"><i class="fas fa-search"></i></button>
+                    </div>
+                    <!--check boxes-->
+                    <form action="#">
+                        <p>
+                            <label>
+                              <input id="indeterminate-checkbox" type="checkbox" />
+                              <span>Restaurants</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                              <input id="indeterminate-checkbox" type="checkbox" />
+                              <span>Bars</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                              <input id="indeterminate-checkbox" type="checkbox" />
+                              <span>Cultural</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                              <input id="indeterminate-checkbox" type="checkbox" />
+                              <span>Hiking</span>
+                            </label>
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="googlemap">
+
+            </div>
+
+            <div class="places">
+                
+            </div>
+        </div>
+    </main>
 
 
 
-
+    <script src="https://kit.fontawesome.com/d5e113eedd.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
