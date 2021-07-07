@@ -1,13 +1,22 @@
-
-
 header {
-    background-color: rgb(3, 14, 48);
-    padding: 10px 0;
-}  
-
-h1 {
-    font-family: 'Lobster', cursive;
-    color: whitesmoke;
-    margin: 0;
+  background-color: rgb(3, 14, 48);
+  padding: 10px 0;
 }
 
+h1 {
+  font-family: "Lobster", cursive;
+  color: whitesmoke;
+  margin: 0;
+}
+
+#map {
+  height: 500px;
+  width: 700px;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
