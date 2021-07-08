@@ -7,11 +7,14 @@ var openTripApi = "5ae2e3f221c38a28845f05b6f54e41bdb094bc3a2bf1800695ea6765";
 var searchBtn = document.getElementById("search-destination");
 
 
+
 //function to get the search value that the user inputted
+
 function getSearchValue(event) {
   event.preventDefault();
   var searchValue = document.querySelector("#input").value.trim();
   getGeoLocation(searchValue);
+
 }
 
 //previous search autocomplete
@@ -52,6 +55,39 @@ function getPlaces(lat, lng, category) {
       console.log(data);
       //Create the cards here
     })
+
+}
+
+function getGeoLocation(searchValue) {
+  var queryUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + searchValue + "&key=" + googleApi;
+
+  fetch(queryUrl)
+    .then(function (res) {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      var lat = data.results[0].geometry.location.lat;
+      var lng = data.results[0].geometry.location.lng;
+      console.log(lat);
+      console.log(lng);
+      initMap(searchValue, lat, lng);
+    });
+
+}
+
+function initMap(searchValue, lat, lng) {
+  const myLatLng = { lat, lng };
+  console.log(myLatLng);
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: myLatLng,
+  });
+  new google.maps.Marker({
+    position: myLatLng,
+    map,
+    title: String(searchValue),
+  });
 }
 
 
@@ -71,6 +107,7 @@ function initMap(searchValue, lat, lng) {
 }
 
 
+
 //Eventlistener for image slider activation
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.slider');
@@ -79,10 +116,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
 //Eventlistner on the searchbutton
 searchBtn.addEventListener("click", getSearchValue);
 
 //TODO: 
+
+//Eventlistner on the searchbutton
+searchBtn.addEventListener("click", getSearchValue);
+
+
+
+
+
+ //TODO: 
 //cards popping up on the side
 //create actual cards 
 //tie to button click

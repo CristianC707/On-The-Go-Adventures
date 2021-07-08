@@ -30,6 +30,9 @@ h5 {
   text-shadow: 2px 2px 3px rgb(44, 44, 44);
   font-size: 25px;
     
+  
+    text-shadow: 2px 2px 3px rgb(44, 44, 44);
+    font-size: 25px; 
 }
 
 
@@ -67,7 +70,6 @@ main {
 #map-cont {
   padding: 30px 15px 15px 0;
 }
-
 
 
 #map {
