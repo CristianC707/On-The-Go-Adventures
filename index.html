@@ -12,10 +12,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--materialize css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
     <!--css styling-->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!--javaScript connection-->
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
     <script src="./assets/js/script.js"></script>
     <title>On The Go Adventures</title>
 </head>
@@ -27,6 +32,7 @@
     </header>
 
     <main>
+
       <!--Image slideshow-->
       <div class="container-fluid">
         <div class="row">
@@ -37,6 +43,42 @@
                 <div class="caption center-align">
                   <h2>Live in the moment!</h2>
                   <h5 class="light grey-text text-lighten-3">The past is over and the future is promised to no one.</h5>
+
+        <!--Image slideshow-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="slider">
+                    <ul class="slides">
+                      <li>
+                        <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                        <div class="caption center-align">
+                          <h3>This is our big Tagline!</h3>
+                          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                      </li>
+                      <li>
+                        <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                        <div class="caption left-align">
+                          <h3>Left Aligned Caption</h3>
+                          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                      </li>
+                      <li>
+                        <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                        <div class="caption right-align">
+                          <h3>Right Aligned Caption</h3>
+                          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                      </li>
+                      <li>
+                        <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
+                        <div class="caption center-align">
+                          <h3>This is our big Tagline!</h3>
+                          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                      </li>
+                    </ul>
+
                 </div>
               </li>
               <li>
@@ -73,6 +115,7 @@
               <input type="search" placeholder="Enter destination" class="col s10 m10" id="input">
               <div class="btn waves-effect waves-light btn" type="button" id="search-destination"><i class="fas fa-search"></i></div>                      
             </div>
+
             <!--check boxes-->
             <form action="#" class="checkboxes">                      
               <div class="row" id="checkbox">
@@ -185,6 +228,17 @@
             <div class="row" id="map-cont">
               <div class="col s12 m8 l8" >
                 <div id="map" class="googlemap"></div>
+
+            
+            <!--google map-->
+            <div class="container">
+              <div class="row">
+                <div class="col m8">
+                  <div id="map" class="googlemap"></div>
+                </div>
+                
+                <div class="places col s4"></div>
+
               </div>
               
               <!--place card in 'card' div, add 'hide' to places div-->
@@ -212,7 +266,10 @@
       </div>
     </main>
 
+
     <!--google maps api-->
+
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Bki2vXaNQSPf7QpnYstYXwZs0yc3Fdo&callback=initMap&libraries=&v=weekly" async ></script>
     <script src="https://kit.fontawesome.com/d5e113eedd.js" crossorigin="anonymous"></script>
     <!--materialize javaScript-->

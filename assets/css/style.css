@@ -1,5 +1,6 @@
 
 
+
 /*whole page edits*/
 html,
 body {
@@ -12,15 +13,13 @@ body {
 header {
   background-color: rgb(3, 14, 48);
   padding: 10px 0;
-  
-  
-}
 
 /*h tags*/
 h1 {
   font-family: "Lobster", cursive;
   color: whitesmoke;
   margin: 0;
+
 }
 
 h2 {
@@ -70,9 +69,9 @@ main {
     padding: 30px 15px 15px 0;
 }
 
+}
 
-
-
-
-
-
+#map {
+  height: 500px;
+  width: 700px;
+}
