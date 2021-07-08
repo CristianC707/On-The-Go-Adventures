@@ -13,6 +13,7 @@ body {
 header {
   background-color: rgb(3, 14, 48);
   padding: 10px 0;
+}
 
 /*h tags*/
 h1 {
@@ -29,8 +30,7 @@ h2 {
 
 h5 {
     text-shadow: 2px 2px 3px rgb(44, 44, 44);
-    font-size: 25px;
-    
+    font-size: 25px; 
 }
 
 
@@ -69,7 +69,6 @@ main {
     padding: 30px 15px 15px 0;
 }
 
-}
 
 #map {
   height: 500px;
