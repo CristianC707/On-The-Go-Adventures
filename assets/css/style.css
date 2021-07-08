@@ -1,5 +1,4 @@
 
-
 /*whole page edits*/
 html,
 body {
@@ -12,8 +11,6 @@ body {
 header {
   background-color: rgb(3, 14, 48);
   padding: 10px 0;
-  
-  
 }
 
 /*h tags*/
@@ -21,58 +18,58 @@ h1 {
   font-family: "Lobster", cursive;
   color: whitesmoke;
   margin: 0;
+
 }
 
 h2 {
-    color: whitesmoke;
-    text-shadow: 2px 2px 4px rgb(44, 44, 44);
+  color: whitesmoke;
+  text-shadow: 2px 2px 4px rgb(44, 44, 44);
 }
 
 h5 {
-    text-shadow: 2px 2px 3px rgb(44, 44, 44);
-    font-size: 25px;
+  text-shadow: 2px 2px 3px rgb(44, 44, 44);
+  font-size: 25px;
     
 }
 
 
 /*main tag, changing background*/
 main {
-    background-color: rgb(224, 224, 224);
+  background-color: rgb(224, 224, 224);
 }
 
 /*getting rid of slider dots*/
 .indicators {
-    display: none;
+  display: none;
 }
 
 /*font size increase within search bar*/
 #input {
-    padding-left: 10px;
-    font-size: 20px;
+  padding-left: 10px;
+  font-size: 20px;
 }
 
 /*darkening the placeholder in the search bar*/
 ::placeholder {
-    color: gray;
+  color: gray;
 }
 
 #checkbox-header {
-    font-size: 25px;
+  font-size: 25px;
 }
 
 /*google maps edits*/
 #map {
   height: 500px;
-  box-shadow: 2px 2px 5px gray;
+
 }
 
 #map-cont {
-    padding: 30px 15px 15px 0;
+  padding: 30px 15px 15px 0;
 }
 
 
 
-
-
-
-
+#map {
+  height: 500px;
+}

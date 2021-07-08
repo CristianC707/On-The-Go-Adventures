@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--materialize css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
     <!--css styling-->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <!--jquery-->
@@ -19,7 +20,11 @@
     <!--for google maps-->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!--javaScript connection-->
-    <script src="./assets/js/script.js"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    
     <title>On The Go Adventures</title>
 </head>
 
@@ -30,6 +35,7 @@
     </header>
 
     <main>
+
       <!--Image slideshow-->
       <div class="container-fluid">
         <div class="row">
@@ -76,7 +82,6 @@
               <input type="search" placeholder="Enter destination" class="col s10 m10" id="input">
               <div class="btn waves-effect waves-light btn" type="button" id="search-destination"><i class="fas fa-search"></i></div>                      
             </div>
-            <!--Previous searches dropdown-->
             
             <!--check boxes-->
             <form action="#" class="checkboxes">                      
@@ -190,6 +195,7 @@
             <div class="row" id="map-cont">
               <div class="col s12 m8 l8" >
                 <div id="map" class="googlemap"></div>
+
               </div>
               
               <!--place card in 'card' div, add 'hide' to places div-->
@@ -217,10 +223,12 @@
       </div>
     </main>
 
+
     <!--google maps api-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Bki2vXaNQSPf7QpnYstYXwZs0yc3Fdo&callback=initMap&libraries=&v=weekly" async ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Bki2vXaNQSPf7QpnYstYXwZs0yc3Fdo&libraries=&v=weekly" async ></script>
     <script src="https://kit.fontawesome.com/d5e113eedd.js" crossorigin="anonymous"></script>
     <!--materialize javaScript-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
