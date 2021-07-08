@@ -36,7 +36,13 @@ function getSearchValue() {
     console.log(searchValue);
 }
 
-
+//autocomplete function
+$( function() {
+  var previousSearches = [];
+  $( "#tags" ).autocomplete({
+    source: previousSearches
+  });
+} );
 
 //image slider activation
 document.addEventListener('DOMContentLoaded', function() {
