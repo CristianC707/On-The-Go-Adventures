@@ -9,6 +9,9 @@ var checkBtn = document.getElementById("restaurants-checkbox");
 var lat;
 var lng;
 
+var msg = document.querySelector('.msg');
+var checkboxMsg = document.querySelector('.checkbox-msg');
+
 var restaurantIndexed = [];
 var barIndexed = [];
 var museumIndexed = [];
@@ -25,12 +28,42 @@ var nightActivitiesIndexed = [];
 var transportIndexed = [];
 var cinemasIndexed = [];
 
+
+$( function() {
+  var previousSearch = [];
+  $( "#tags" ).autocomplete({
+    source: previousSearch
+  });
+} );
+
+
 //function to get the search value that the user inputted
 function getSearchValue(event) {
   event.preventDefault();
   var searchValue = document.querySelector("#input").value.trim();
+
+  if(searchValue === '') {
+    msg.classList.add('.msg')
+    msg.innerHTML = 'Please enter destination*'
+    setTimeout(() => msg.remove(), 3000);
+  }
+
   getGeoLocation(searchValue);
+  getLocalStorage(searchValue);
 }
+
+// Function to store the location search value in localstorage and display back to user
+function getLocalStorage(searchValue) {
+  //Localstorage -- created an array to store all the input values in
+  var locationArray = [];
+  localStorage.setItem("location", JSON.stringify(searchValue));
+  locationArray.push(JSON.parse(localStorage.getItem("location")));
+
+  // for (let i = 0; i < cityArray.length; i++) {
+
+  // }
+}
+
 
 //function to get the long and lat from the location inputted in the search field
 function getGeoLocation(searchValue) {
@@ -56,9 +89,13 @@ function getGeoLocation(searchValue) {
       var checkboxes = document.getElementsByName("checkbox");
       var category = [];
       for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
+        if(checkboxes[i].checked) {
           category.push(checkboxes[i].value);
           var categories = category.toString();
+        } else if (checkboxes[i].checked === false) {
+          checkboxMsg.classList.add('.checkbox-msg')
+          checkboxMsg.innerHTML = 'Please check a box*'
+          setTimeout(() => checkboxMsg.remove(), 3000);
         }
       }
       console.log(categories);
@@ -227,13 +264,6 @@ function getRandomPlaces(data) {
   console.log(cinemasIndexed);
 
 }
-
-
-
-
-
-
-
 
 //Create the google map with the lat and lng from getGeolocation()
 function initMap(searchValue, lat, lng) {
