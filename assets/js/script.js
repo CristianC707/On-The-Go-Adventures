@@ -12,22 +12,6 @@ var lng;
 var msg = document.querySelector('.msg');
 var checkboxMsg = document.querySelector('.checkbox-msg');
 
-var restaurantIndexed = [];
-var barIndexed = [];
-var museumIndexed = [];
-var beachIndexed = [];
-var architectureIndexed = [];
-var accomodationIndexed = [];
-var amusementIndexed = [];
-var historicIndexed = [];
-var natureIndexed = [];
-var religionIndexed = [];
-var sportsIndexed = [];
-var shopsIndexed = [];
-var nightActivitiesIndexed = [];
-var transportIndexed = [];
-var cinemasIndexed = [];
-
 
 $( function() {
   var previousSearch = [];
@@ -35,6 +19,10 @@ $( function() {
     source: previousSearch
   });
 } );
+
+$(document).ready(function(){
+  $('.collapsible').collapsible();
+});
 
 
 //function to get the search value that the user inputted
@@ -50,6 +38,7 @@ function getSearchValue(event) {
 
   getGeoLocation(searchValue);
   getLocalStorage(searchValue);
+  
 }
 
 // Function to store the location search value in localstorage and display back to user
@@ -62,6 +51,7 @@ function getLocalStorage(searchValue) {
   // for (let i = 0; i < cityArray.length; i++) {
 
   // }
+  return;
 }
 
 
@@ -100,6 +90,7 @@ function getGeoLocation(searchValue) {
       }
       console.log(categories);
       getPlaces(lat, lng, categories);
+      
     });
 }
 
@@ -121,14 +112,10 @@ function getPlaces(lat, lng, categories) {
     })
     .then(function (data) {
       console.log(data);
-      //Pass the data to getRandPlaces function in order to get randomized places
+      //Pass the data to getRandomPlaces function in order to get randomized places
       getRandomPlaces(data);
     });
 }
-
-
-
-
 
 // Function to get random places based on what checkboxes are checked --- these places are limited to 5 places at random for each array
 function getRandomPlaces(data) {
@@ -149,38 +136,68 @@ function getRandomPlaces(data) {
   var transport = [];
   var cinemas = [];
 
+  var restaurantIndexed = [];
+  var barIndexed = [];
+  var museumIndexed = [];
+  var beachIndexed = [];
+  var architectureIndexed = [];
+  var accomodationIndexed = [];
+  var amusementIndexed = [];
+  var historicIndexed = [];
+  var natureIndexed = [];
+  var religionIndexed = [];
+  var sportsIndexed = [];
+  var shopsIndexed = [];
+  var nightActivitiesIndexed = [];
+  var transportIndexed = [];
+  var cinemasIndexed = [];
+
   //iterates over all the data and pushes the data to seperate arrays depending on what type of property it is
   for (let i = 0; i < data.features.length; i++) {
     var propertyType = data.features[i].properties.kinds;
     if (propertyType.includes("restaurants", "fast_food")) {
       restaurants.push(data.features[i]);
-    } else if (propertyType.includes("bars")) {
+    } 
+     if (propertyType.includes("bars")) {
       bars.push(data.features[i]);
-    } else if (propertyType.includes("museums" || "urban_environment")) {
+    } 
+     if (propertyType.includes("museums" || "urban_environment")) {
       museums.push(data.features[i]);
-    } else if (propertyType.includes("beaches")) {
+    } 
+     if (propertyType.includes("beaches")) {
       beaches.push(data.features[i]);
-    } else if (propertyType.includes("architecture")) {
+    } 
+     if (propertyType.includes("architecture")) {
       architecture.push(data.features[i]);
-    } else if (propertyType.includes("accomodations")) {
+    } 
+     if (propertyType.includes("accomodations")) {
       accomodations.push(data.features[i]);
-    } else if (propertyType.includes("amusement")) {
+    } 
+     if (propertyType.includes("amusement")) {
       amusement.push(data.features[i]);
-    } else if (propertyType.includes("historic")) {
+    } 
+    if (propertyType.includes("historic")) {
       historic.push(data.features[i]);
-    } else if (propertyType.includes("geological_formations" || "natural_springs" || "nature_reserves" || "water")) {
+    } 
+    if (propertyType.includes("geological_formations" || "natural_springs" || "nature_reserves" || "water")) {
       nature.push(data.features[i]);
-    } else if (propertyType.includes("religion")) {
+    } 
+     if (propertyType.includes("religion")) {
       religion.push(data.features[i]);
-    } else if (propertyType.includes("sport")) {
+    } 
+     if (propertyType.includes("sport")) {
       sports.push(data.features[i]);
-    } else if (propertyType.includes("shop")) {
+    } 
+     if (propertyType.includes("shop")) {
       shops.push(data.features[i]);
-    } else if (propertyType.includes("nightclubs" || "hookah" || "alcohol" || "casino")) {
+    } 
+     if (propertyType.includes("nightclubs" || "hookah" || "alcohol" || "casino")) {
       nightActivities.push(data.features[i]);
-    } else if (propertyType.includes("transport")) {
+    } 
+     if (propertyType.includes("transport")) {
       transport.push(data.features[i]);
-    } else if (propertyType.includes("cinemas")) {
+    } 
+     if (propertyType.includes("cinemas")) {
       cinemas.push(data.features[i]);
     }
   }
@@ -247,22 +264,176 @@ function getRandomPlaces(data) {
     cinemasIndexed.push(index);
   }
 
-  console.log(restaurantIndexed);
   console.log(barIndexed);
-  console.log(museumIndexed);
-  console.log(beachIndexed);
-  console.log(architectureIndexed);
-  console.log(accomodationIndexed);
-  console.log(amusementIndexed);
-  console.log(historicIndexed);
-  console.log(natureIndexed);
-  console.log(religionIndexed);
-  console.log(sportsIndexed);
-  console.log(shopsIndexed);
-  console.log(nightActivitiesIndexed);
-  console.log(transportIndexed);
-  console.log(cinemasIndexed);
+  displayPlaces(restaurantIndexed, barIndexed, museumIndexed, beachIndexed, architectureIndexed,
+    accomodationIndexed, amusementIndexed, historicIndexed, natureIndexed, religionIndexed, sportsIndexed, shopsIndexed,
+    nightActivitiesIndexed, transportIndexed, cinemasIndexed);
+}
 
+// Function to display the lists that were selected through the checkboxes
+function displayPlaces(restaurantIndexed, barIndexed, museumIndexed, beachIndexed, architectureIndexed,
+  accomodationIndexed, amusementIndexed, historicIndexed, natureIndexed, religionIndexed, sportsIndexed, shopsIndexed,
+  nightActivitiesIndexed, transportIndexed, cinemasIndexed) {
+  // Select and display the lists
+  var placesDisplay = document.querySelector("#places-display");
+  placesDisplay.removeAttribute("hidden");
+
+  //// Create Restaurant list
+    var restaurantDivEl = document.querySelector(".restaurant-list");
+    var restaurantUlEl = document.createElement("ul");
+    for (let i = 0; i < restaurantIndexed.length; i++) {
+      var restaurantLiEl = document.createElement("li");
+      restaurantLiEl.textContent = restaurantIndexed[i].properties.name;
+      restaurantUlEl.append(restaurantLiEl);
+    }
+    restaurantDivEl.append(restaurantUlEl);
+
+  //// Create bar list
+
+  var barDivEl = document.querySelector(".bar-list");
+  var barUlEl = document.createElement("ul");
+  for (let i = 0; i < barIndexed.length; i++) {
+    var barLiEl = document.createElement("li");
+    barLiEl.textContent = barIndexed[i].properties.name;
+    barUlEl.append(barLiEl);
+  }
+  barDivEl.append(barUlEl);
+
+
+  //// Create museum list
+
+  var museumDivEl = document.querySelector(".museum-list");
+  var museumUlEl = document.createElement("ul");
+  for (let i = 0; i < museumIndexed.length; i++) {
+    var museumLiEl = document.createElement("li");
+    museumLiEl.textContent = museumIndexed[i].properties.name;
+    museumUlEl.append(museumLiEl);
+  }
+  museumDivEl.append(museumUlEl);
+
+
+  //// Create Beach List
+
+  var beachDivEl = document.querySelector(".beach-list");
+  var beachUlEl = document.createElement("ul");
+  for (let i = 0; i < beachIndexed.length; i++) {
+    var beachLiEl = document.createElement("li");
+    beachLiEl.textContent = beachIndexed[i].properties.name;
+    beachUlEl.append(beachLiEl);
+  }
+  beachDivEl.append(beachUlEl);
+  return;
+
+
+  //// Create Architecture list
+  var architectureDivEl = document.querySelector(".architecture-list");
+  var architectureUlEl = document.createElement("ul");
+  for (let i = 0; i < architectureIndexed.length; i++) {
+    var architectureLiEl = document.createElement("li");
+    architectureLiEl.textContent = architectureIndexed[i].properties.name;
+    architectureUlEl.append(architectureLiEl);
+  }
+  architectureDivEl.append(architectureUlEl);
+
+  //// Create accomodations list
+  var accomodationDivEl = document.querySelector(".accomodation-list");
+  var accomodationUlEl = document.createElement("ul");
+  for (let i = 0; i < accomodationIndexed.length; i++) {
+    var accomodationLiEl = document.createElement("li");
+    accomodationLiEl.textContent = accomodationIndexed[i].properties.name;
+    accomodationUlEl.append(accomodationLiEl);
+  }
+  accomodationDivEl.append(accomodationUlEl);
+
+  //// Create amusement list
+  var amusementDivEl = document.querySelector(".amusement-list");
+  var amusementUlEl = document.createElement("ul");
+  for (let i = 0; i < amusementIndexed.length; i++) {
+    var amusementLiEl = document.createElement("li");
+    amusementLiEl.textContent = amusementIndexed[i].properties.name;
+    amusementUlEl.append(amusementLiEl);
+  }
+  amusementDivEl.append(amusementUlEl);
+
+  //// Create historic list
+  var historicDivEl = document.querySelector(".historic-list");
+  var historicUlEl = document.createElement("ul");
+  for (let i = 0; i < historicIndexed.length; i++) {
+    var historicLiEl = document.createElement("li");
+    historicLiEl.textContent = historicIndexed[i].properties.name;
+    historicUlEl.append(historicLiEl);
+  }
+  historicDivEl.append(historicUlEl);
+
+  //// Create Nature list
+  var natureDivEl = document.querySelector(".nature-list");
+  var natureUlEl = document.createElement("ul");
+  for (let i = 0; i < natureIndexed.length; i++) {
+    var natureLiEl = document.createElement("li");
+    natureLiEl.textContent = natureIndexed[i].properties.name;
+    natureUlEl.append(natureLiEl);
+  }
+  natureDivEl.append(natureUlEl);
+
+  //// Create Religion list
+  var religionDivEl = document.querySelector(".religion-list");
+  var religionUlEl = document.createElement("ul");
+  for (let i = 0; i < religionIndexed.length; i++) {
+    var religionLiEl = document.createElement("li");
+    religionLiEl.textContent = religionIndexed[i].properties.name;
+    religionUlEl.append(religionLiEl);
+  }
+  religionDivEl.append(religionUlEl);
+
+  //// Create Sports list
+  var sportsDivEl = document.querySelector(".sports-list");
+  var sportsUlEl = document.createElement("ul");
+  for (let i = 0; i < sportsIndexed.length; i++) {
+    var sportsLiEl = document.createElement("li");
+    sportsLiEl.textContent = sportsIndexed[i].properties.name;
+    sportsUlEl.append(sportsLiEl);
+  }
+  sportsDivEl.append(sportsUlEl);
+
+  //// Create Shops List
+  var shopsDivEl = document.querySelector(".shops-list");
+  var shopsUlEl = document.createElement("ul");
+  for (let i = 0; i < shopsIndexed.length; i++) {
+    var shopsLiEl = document.createElement("li");
+    shopsLiEl.textContent = shopsIndexed[i].properties.name;
+    shopsUlEl.append(shopsLiEl);
+  }
+  shopsDivEl.append(shopsUlEl);
+
+  //// Create Night Lift list
+  var nightActivitiesDivEl = document.querySelector(".nightActivities-list");
+  var nightActivitiesUlEl = document.createElement("ul");
+  for (let i = 0; i < nightActivitiesIndexed.length; i++) {
+    var nightActivitiesLiEl = document.createElement("li");
+    nightActivitiesLiEl.textContent = nightActivitiesIndexed[i].properties.name;
+    nightActivitiesUlEl.append(nightActivitiesLiEl);
+  }
+  nightActivitiesDivEl.append(nightActivitiesUlEl);
+
+  //// Create transport list
+  var transportDivEl = document.querySelector(".transport-list");
+  var transportUlEl = document.createElement("ul");
+  for (let i = 0; i < transportIndexed.length; i++) {
+    var transportLiEl = document.createElement("li");
+    transportLiEl.textContent = transportIndexed[i].properties.name;
+    transportUlEl.append(transportLiEl);
+  }
+  transportDivEl.append(transportUlEl);
+
+  //// Create cinemas list
+  var cinemasDivEl = document.querySelector(".cinemas-list");
+  var cinemasUlEl = document.createElement("ul");
+  for (let i = 0; i < cinemasIndexed.length; i++) {
+    var cinemasLiEl = document.createElement("li");
+    cinemasLiEl.textContent = cinemasIndexed[i].properties.name;
+    cinemasUlEl.append(cinemasLiEl);
+  }
+  cinemasDivEl.append(cinemasUlEl);
 }
 
 //Create the google map with the lat and lng from getGeolocation()
