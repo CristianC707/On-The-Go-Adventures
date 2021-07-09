@@ -47,11 +47,17 @@ main {
 #input {
   padding-left: 10px;
   font-size: 20px;
+  background-color: whitesmoke;
 }
 
 /*darkening the placeholder in the search bar*/
 ::placeholder {
   color: gray;
+}
+
+.btn {
+  height: px;
+  margin-top: 3px;
 }
 
 #checkbox-header {
@@ -73,3 +79,18 @@ main {
 #map {
   height: 500px;
 }
+
+.callapsible-body {
+  color: rgb(204, 201, 201);
+}
+
+
+/*error msg colors*/
+.msg {
+  color: red;
+}
+
+.checkbox-msg {
+  color: red;
+}
+
