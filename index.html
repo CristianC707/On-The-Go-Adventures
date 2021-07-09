@@ -79,6 +79,7 @@
         <div class="container">
           <div class="row">
             <h4>Where are you heading?</h4>
+            <div class="msg"></div>
             <div class="input-container">
               <input type="search" placeholder="Enter destination" class="col s10 m10" id="input">
               <div class="btn waves-effect waves-light btn" type="button" id="search-destination"><i class="fas fa-search"></i></div>                      
@@ -88,6 +89,7 @@
             <form action="#" class="checkboxes">                      
               <div class="row" id="checkbox">
                 <h4 class="col s10" id="checkbox-header">What interest you?</h4>
+                <div class="checkbox-msg"></div>
                 <div class="col s6 m3">
                   <p>
                     <label>
@@ -201,8 +203,60 @@
               
               <!--place card in 'card' div, add 'hide' to places div-->
               <div class="places">
-                <div class="card col s12 m4 l4">
+                <div class="col s12 m4 l4">
                   <!--temporary placement card.. need to create in js-->
+
+                  <ul class="collapsible popout">
+                    <div class="restaurants">
+                      <li>
+                        <div class="collapsible-header"><i class="material-icons">restaurant</i>Restaurants<i class="material-icons col">expand_more</i></div>
+                        <div class="collapsible-body "><span>Lorem ipsum dolor sit amet.</span></div>
+                      </li>
+                    </div>
+                    <div class="bars">
+                      
+                    </div>                   
+                    <div class="cultural">
+
+                    </div>                   
+                    <div class="beaches">
+
+                    </div>                   
+                    <div class="nature">
+
+                    </div>                   
+                    <div class="religion">
+
+                    </div>                   
+                    <div class="sports">
+
+                    </div>                   
+                    <div class="shops">
+
+                    </div>                   
+                    <div class="architecture">
+
+                    </div>                   
+                    <div class="hotel/resot">
+
+                    </div>                   
+                    <div class="amusements">
+
+                    </div>                   
+                    <div class="historic">
+
+                    </div>                   
+                    <div class="night-life">
+
+                    </div>                   
+                    <div class="transport">
+
+                    </div>                   
+                    <div class="movie-theatre">
+
+                    </div>                   
+                  </ul>
+
                   <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="./assets/images/pizza-demo.jpg">
                   </div>
@@ -213,6 +267,7 @@
                   <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Blaze Pizza<i class="material-icons right">close</i></span>
                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+
                   </div>
                 </div>
               </div>
