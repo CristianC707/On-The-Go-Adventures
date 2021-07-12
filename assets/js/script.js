@@ -10,9 +10,8 @@ var checkBtn = document.getElementById("restaurants-checkbox");
 var lat;
 var lng;
 
-//Message Selectors
+//Message Selector
 var msg = document.querySelector(".msg");
-var checkboxMsg = document.querySelector(".checkbox-msg");
 
 
 // Function for the places collapsible lists
@@ -45,12 +44,26 @@ function getLocalStorage(searchValue) {
   for (let i = 0; i < locationArray.length; i++) {
     var liEl = document.createElement("li");
     liEl.setAttribute("class", "li-styling");
-    liEl.textContent = locationArray[i];
+    var aEl = document.createElement("a");
+    aEl.setAttribute("href", "#");
+    aEl.textContent = locationArray[i];
+    liEl.append(aEl);
     ulEl.append(liEl);
   }
   divEl.append(ulEl);
 
+  aEl.addEventListener("click", function() {
+    searchValue = aEl.value;
+    searchPreviousDestinations(searchValue);
+  })
+
 }
+
+function searchPreviousDestinations(searchValue) {
+  getGeoLocation(searchValue);
+  getLocalStorage(searchValue);
+}
+
 
 //function to get the long and lat from the location inputted in the search field
 function getGeoLocation(searchValue) {
@@ -79,11 +92,7 @@ function getGeoLocation(searchValue) {
         if (checkboxes[i].checked) {
           category.push(checkboxes[i].value);
           var categories = category.toString();
-        } else if (checkboxes[i].checked === false) {
-          checkboxMsg.classList.add(".checkbox-msg");
-          checkboxMsg.innerHTML = "Please check a box*";
-          setTimeout(() => checkboxMsg.remove(), 3000);
-        }
+        } 
       }
       getPlaces(lat, lng, categories);
     });
@@ -346,7 +355,11 @@ function displayPlaces(
     for (let i = 0; i < restaurantIndexed.length; i++) {
       var restaurantLiEl = document.createElement("li");
       restaurantLiEl.setAttribute("class", "li-styling");
-      restaurantLiEl.textContent = restaurantIndexed[i].properties.name;
+      if(restaurantIndexed[i].properties.name === "") {
+        restaurantLiEl.textContent = "This property has no name";
+      } else {
+        restaurantLiEl.textContent = restaurantIndexed[i].properties.name;
+      }
       restaurantUlEl.append(restaurantLiEl);
     }
     restaurantDivEl.append(restaurantUlEl);
@@ -366,7 +379,11 @@ function displayPlaces(
     for (let i = 0; i < barIndexed.length; i++) {
       var barLiEl = document.createElement("li");
       barLiEl.setAttribute("class", "li-styling");
-      barLiEl.textContent = barIndexed[i].properties.name;
+      if(barIndexed[i].properties.name === "") {
+        barLiEl.textContent = "This property has no name";
+      } else {
+        barLiEl.textContent = barIndexed[i].properties.name;
+      }
       barUlEl.append(barLiEl);
     }
     barDivEl.append(barUlEl);
@@ -385,7 +402,11 @@ function displayPlaces(
     for (let i = 0; i < museumIndexed.length; i++) {
       var museumLiEl = document.createElement("li");
       museumLiEl.setAttribute("class", "li-styling");
-      museumLiEl.textContent = museumIndexed[i].properties.name;
+      if(museumIndexed[i].properties.name === ""){
+        museumLiEl.textContent = "This propety has no name";
+      } else {
+        museumLiEl.textContent = museumIndexed[i].properties.name;
+      }
       museumUlEl.append(museumLiEl);
     }
   }
@@ -405,7 +426,11 @@ function displayPlaces(
     for (let i = 0; i < architectureIndexed.length; i++) {
       var architectureLiEl = document.createElement("li");
       architectureLiEl.setAttribute("class", "li-styling");
-      architectureLiEl.textContent = architectureIndexed[i].properties.name;
+      if(architectureIndexed[i].properties.name === "") {
+        architectureLiEl.textContent = "This property has no name";
+      } else {
+        architectureLiEl.textContent = architectureIndexed[i].properties.name;
+      }
       architectureUlEl.append(architectureLiEl);
     }
     architectureDivEl.append(architectureUlEl);
@@ -425,7 +450,11 @@ function displayPlaces(
     for (let i = 0; i < accomodationIndexed.length; i++) {
       var accomodationLiEl = document.createElement("li");
       accomodationLiEl.setAttribute("class", "li-styling");
-      accomodationLiEl.textContent = accomodationIndexed[i].properties.name;
+      if(accomodationIndexed[i].properties.name === "") {
+        accomodationLiEl.textContent = "This property has no name";
+      } else {
+        accomodationLiEl.textContent = accomodationIndexed[i].properties.name;
+      }
       accomodationUlEl.append(accomodationLiEl);
     }
     accomodationDivEl.append(accomodationUlEl);
@@ -445,7 +474,11 @@ function displayPlaces(
     for (let i = 0; i < amusementIndexed.length; i++) {
       var amusementLiEl = document.createElement("li");
       amusementLiEl.setAttribute("class", "li-styling");
-      amusementLiEl.textContent = amusementIndexed[i].properties.name;
+      if(amusementIndexed[i].properties.name === "") {
+        amusementLiEl.textContent = "This property has no name";
+      } else {
+        amusementLiEl.textContent = amusementIndexed[i].properties.name;
+      }
       amusementUlEl.append(amusementLiEl);
     }
     amusementDivEl.append(amusementUlEl);
@@ -465,7 +498,11 @@ function displayPlaces(
     for (let i = 0; i < historicIndexed.length; i++) {
       var historicLiEl = document.createElement("li");
       historicLiEl.setAttribute("class", "li-styling");
-      historicLiEl.textContent = historicIndexed[i].properties.name;
+      if(historicIndexed[i].properties.name === "") {
+        historicLiEl.textContent = "This property has no name";
+      } else {
+        historicLiEl.textContent = historicIndexed[i].properties.name;
+      }
       historicUlEl.append(historicLiEl);
     }
     historicDivEl.append(historicUlEl);
@@ -485,7 +522,11 @@ function displayPlaces(
     for (let i = 0; i < religionIndexed.length; i++) {
       var religionLiEl = document.createElement("li");
       religionLiEl.setAttribute("class", "li-styling");
-      religionLiEl.textContent = religionIndexed[i].properties.name;
+      if(religionIndexed[i].properties.name === "") {
+        religionLiEl.textContent = "This property has no name";
+      } else {
+        religionLiEl.textContent = religionIndexed[i].properties.name;
+      }
       religionUlEl.append(religionLiEl);
     }
     religionDivEl.append(religionUlEl);
@@ -505,7 +546,11 @@ function displayPlaces(
     for (let i = 0; i < sportsIndexed.length; i++) {
       var sportsLiEl = document.createElement("li");
       sportsLiEl.setAttribute("class", "li-styling");
-      sportsLiEl.textContent = sportsIndexed[i].properties.name;
+      if(sportsIndexed[i].properties.name === "") {
+        sportsLiEl.textContent = "This property has no name";
+      } else {
+        sportsLiEl.textContent = sportsIndexed[i].properties.name;
+      }
       sportsUlEl.append(sportsLiEl);
     }
     sportsDivEl.append(sportsUlEl);
@@ -525,7 +570,11 @@ function displayPlaces(
     for (let i = 0; i < shopsIndexed.length; i++) {
       var shopsLiEl = document.createElement("li");
       shopsLiEl.setAttribute("class", "li-styling");
-      shopsLiEl.textContent = shopsIndexed[i].properties.name;
+      if(shopsIndexed[i].properties.name === "") {
+        shopsLiEl.textContent = "This property has no name";
+      } else {
+        shopsLiEl.textContent = shopsIndexed[i].properties.name;
+      }
       shopsUlEl.append(shopsLiEl);
     }
     shopsDivEl.append(shopsUlEl);
@@ -545,8 +594,11 @@ function displayPlaces(
     for (let i = 0; i < nightActivitiesIndexed.length; i++) {
       var nightActivitiesLiEl = document.createElement("li");
       nightActivitiesLiEl.setAttribute("class", "li-styling");
-      nightActivitiesLiEl.textContent =
-        nightActivitiesIndexed[i].properties.name;
+      if(nightActivitiesIndexed[i].properties.name) {
+        nightActivitiesLiEl.textContent = "This property has no name";
+      } else {
+        nightActivitiesLiEl.textContent = nightActivitiesIndexed[i].properties.name;
+      }
       nightActivitiesUlEl.append(nightActivitiesLiEl);
     }
     nightActivitiesDivEl.append(nightActivitiesUlEl);
@@ -566,7 +618,11 @@ function displayPlaces(
     for (let i = 0; i < transportIndexed.length; i++) {
       var transportLiEl = document.createElement("li");
       transportLiEl.setAttribute("class", "li-styling");
-      transportLiEl.textContent = transportIndexed[i].properties.name;
+      if(transportIndexed[i].properties.name === "") {
+        transportLiEl.textContent = "This property has no name";
+      } else {
+        transportLiEl.textContent = transportIndexed[i].properties.name;
+      }  
       transportUlEl.append(transportLiEl);
     }
     transportDivEl.append(transportUlEl);
@@ -586,7 +642,11 @@ function displayPlaces(
     for (let i = 0; i < cinemasIndexed.length; i++) {
       var cinemasLiEl = document.createElement("li");
       cinemasLiEl.setAttribute("class", "li-styling");
-      cinemasLiEl.textContent = cinemasIndexed[i].properties.name;
+      if(cinemasIndexed[i].properties.name === "") {
+        cinemasLiEl.textContent = "This property has no name";
+      } else {
+        cinemasLiEl.textContent = cinemasIndexed[i].properties.name;
+      }
       cinemasUlEl.append(cinemasLiEl);
     }
     cinemasDivEl.append(cinemasUlEl);

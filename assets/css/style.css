@@ -21,11 +21,13 @@ h1 {
 }
 
 h2 {
+  font-family: 'Roboto', sans-serif;
   color: whitesmoke;
   text-shadow: 2px 2px 4px rgb(44, 44, 44);
 }
 
 h5 {
+  font-family: 'Roboto', sans-serif;
   text-shadow: 2px 2px 3px rgb(44, 44, 44);
   font-size: 25px;
     
@@ -99,11 +101,29 @@ main {
   color: red;
 }
 
-.checkbox-msg {
-  color: red;
-}
-
 /* Styling for the lists being created dynamically */
 .li-styling {
   list-style-type: square !important;
+}
+
+/* footer */
+footer {
+  text-align: center;
+  padding: 10px 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  background-color: rgb(3, 14, 48);
+}
+
+footer p {
+  margin: 0 !important;
+  color: white;
+}
+
+.row {
+  margin-bottom: 0 !important;
+}
+
+footer a {
+  color: white;
 }
