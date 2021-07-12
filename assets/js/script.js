@@ -59,11 +59,6 @@ function getLocalStorage(searchValue) {
 
 }
 
-function searchPreviousDestinations(searchValue) {
-  getGeoLocation(searchValue);
-  getLocalStorage(searchValue);
-}
-
 
 //function to get the long and lat from the location inputted in the search field
 function getGeoLocation(searchValue) {
