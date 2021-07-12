@@ -671,4 +671,4 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //Eventlistner on the searchbutton
-searchBtn.addEventListener("click", getSearchValue);
+searchBtn.addEventListener("click", getSearchValue); 
