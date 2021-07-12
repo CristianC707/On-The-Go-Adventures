@@ -6,39 +6,31 @@ var openTripApi = "5ae2e3f221c38a28845f05b6f54e41bdb094bc3a2bf1800695ea6765";
 var searchBtn = document.getElementById("search-destination");
 var checkBtn = document.getElementById("restaurants-checkbox");
 
+//Variable Declared
 var lat;
 var lng;
 
-var msg = document.querySelector('.msg');
-var checkboxMsg = document.querySelector('.checkbox-msg');
+//Message Selectors
+var msg = document.querySelector(".msg");
+var checkboxMsg = document.querySelector(".checkbox-msg");
 
 
-$( function() {
-  var previousSearch = [];
-  $( "#tags" ).autocomplete({
-    source: previousSearch
-  });
-} );
-
-$(document).ready(function(){
-  $('.collapsible').collapsible();
+// Function for the places collapsible lists
+$(document).ready(function () {
+  $(".collapsible").collapsible();
 });
-
 
 //function to get the search value that the user inputted
 function getSearchValue(event) {
   event.preventDefault();
   var searchValue = document.querySelector("#input").value.trim();
-
-  if(searchValue === '') {
-    msg.classList.add('.msg')
-    msg.innerHTML = 'Please enter destination*'
+  if (searchValue === "") {
+    msg.classList.add(".msg");
+    msg.innerHTML = "Please enter destination*";
     setTimeout(() => msg.remove(), 3000);
   }
-
   getGeoLocation(searchValue);
   getLocalStorage(searchValue);
-  
 }
 
 // Function to store the location search value in localstorage and display back to user
@@ -48,12 +40,17 @@ function getLocalStorage(searchValue) {
   localStorage.setItem("location", JSON.stringify(searchValue));
   locationArray.push(JSON.parse(localStorage.getItem("location")));
 
-  // for (let i = 0; i < cityArray.length; i++) {
+  var divEl = document.querySelector("#previous-searches");
+  var ulEl = document.createElement("ul");
+  for (let i = 0; i < locationArray.length; i++) {
+    var liEl = document.createElement("li");
+    liEl.setAttribute("class", "li-styling");
+    liEl.textContent = locationArray[i];
+    ulEl.append(liEl);
+  }
+  divEl.append(ulEl);
 
-  // }
-  return;
 }
-
 
 //function to get the long and lat from the location inputted in the search field
 function getGeoLocation(searchValue) {
@@ -79,18 +76,16 @@ function getGeoLocation(searchValue) {
       var checkboxes = document.getElementsByName("checkbox");
       var category = [];
       for (let i = 0; i < checkboxes.length; i++) {
-        if(checkboxes[i].checked) {
+        if (checkboxes[i].checked) {
           category.push(checkboxes[i].value);
           var categories = category.toString();
         } else if (checkboxes[i].checked === false) {
-          checkboxMsg.classList.add('.checkbox-msg')
-          checkboxMsg.innerHTML = 'Please check a box*'
+          checkboxMsg.classList.add(".checkbox-msg");
+          checkboxMsg.innerHTML = "Please check a box*";
           setTimeout(() => checkboxMsg.remove(), 3000);
         }
       }
-      console.log(categories);
       getPlaces(lat, lng, categories);
-      
     });
 }
 
@@ -123,12 +118,10 @@ function getRandomPlaces(data) {
   var restaurants = [];
   var bars = [];
   var museums = [];
-  var beaches = [];
   var architecture = [];
   var accomodations = [];
   var amusement = [];
   var historic = [];
-  var nature = [];
   var religion = [];
   var sports = [];
   var shops = [];
@@ -136,15 +129,14 @@ function getRandomPlaces(data) {
   var transport = [];
   var cinemas = [];
 
+  //local arrays to store random 5 places from total amount of said places
   var restaurantIndexed = [];
   var barIndexed = [];
   var museumIndexed = [];
-  var beachIndexed = [];
   var architectureIndexed = [];
   var accomodationIndexed = [];
   var amusementIndexed = [];
   var historicIndexed = [];
-  var natureIndexed = [];
   var religionIndexed = [];
   var sportsIndexed = [];
   var shopsIndexed = [];
@@ -157,283 +149,448 @@ function getRandomPlaces(data) {
     var propertyType = data.features[i].properties.kinds;
     if (propertyType.includes("restaurants", "fast_food")) {
       restaurants.push(data.features[i]);
-    } 
-     if (propertyType.includes("bars")) {
+    }
+    if (propertyType.includes("bars")) {
       bars.push(data.features[i]);
-    } 
-     if (propertyType.includes("museums" || "urban_environment")) {
+    }
+    if (propertyType.includes("museums" || "urban_environment")) {
       museums.push(data.features[i]);
-    } 
-     if (propertyType.includes("beaches")) {
-      beaches.push(data.features[i]);
-    } 
-     if (propertyType.includes("architecture")) {
+    }
+    if (propertyType.includes("architecture")) {
       architecture.push(data.features[i]);
-    } 
-     if (propertyType.includes("accomodations")) {
+    }
+    if (propertyType.includes("accomodations")) {
       accomodations.push(data.features[i]);
-    } 
-     if (propertyType.includes("amusement")) {
+    }
+    if (propertyType.includes("amusement")) {
       amusement.push(data.features[i]);
-    } 
+    }
     if (propertyType.includes("historic")) {
       historic.push(data.features[i]);
-    } 
-    if (propertyType.includes("geological_formations" || "natural_springs" || "nature_reserves" || "water")) {
-      nature.push(data.features[i]);
-    } 
-     if (propertyType.includes("religion")) {
+    }
+    if (propertyType.includes("religion")) {
       religion.push(data.features[i]);
-    } 
-     if (propertyType.includes("sport")) {
+    }
+    if (propertyType.includes("sport")) {
       sports.push(data.features[i]);
-    } 
-     if (propertyType.includes("shop")) {
+    }
+    if (propertyType.includes("shop")) {
       shops.push(data.features[i]);
-    } 
-     if (propertyType.includes("nightclubs" || "hookah" || "alcohol" || "casino")) {
+    }
+    if (
+      propertyType.includes("nightclubs" || "hookah" || "alcohol" || "casino")
+    ) {
       nightActivities.push(data.features[i]);
-    } 
-     if (propertyType.includes("transport")) {
+    }
+    if (propertyType.includes("transport")) {
       transport.push(data.features[i]);
-    } 
-     if (propertyType.includes("cinemas")) {
+    }
+    if (propertyType.includes("cinemas")) {
       cinemas.push(data.features[i]);
     }
   }
 
   //Get 5 values from the arrays in order to display them ---- these arrays are global variables
+  var r = restaurants.slice();
   for (let i = 0; i < 5; i++) {
-    var index = restaurants[Math.floor(Math.random() * restaurants.length)];
-    restaurantIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = bars[Math.floor(Math.random() * bars.length)];
-    barIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = museums[Math.floor(Math.random() * museums.length)];
-    museumIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = beaches[Math.floor(Math.random() * beaches.length)];
-    beachIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = architecture[Math.floor(Math.random() * architecture.length)];
-    architectureIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = accomodations[Math.floor(Math.random() * accomodations.length)];
-    accomodationIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = amusement[Math.floor(Math.random() * amusement.length)];
-    amusementIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = historic[Math.floor(Math.random() * historic.length)];
-    historicIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = nature[Math.floor(Math.random() * nature.length)];
-    natureIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = religion[Math.floor(Math.random() * religion.length)];
-    religionIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = sports[Math.floor(Math.random() * sports.length)];
-    sportsIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = shops[Math.floor(Math.random() * shops.length)];
-    shopsIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = nightActivities[Math.floor(Math.random() * nightActivities.length)];
-    nightActivitiesIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = transport[Math.floor(Math.random() * transport.length)];
-    transportIndexed.push(index);
-  }
-  for (let i = 0; i < 5; i++) {
-    var index = cinemas[Math.floor(Math.random() * cinemas.length)];
-    cinemasIndexed.push(index);
+    var restaurantsArr = r[Math.floor(Math.random() * r.length)];
+    var restaurantsIndex = r.indexOf(restaurantsArr);
+    r.splice(restaurantsIndex, 1);
+    restaurantIndexed.push(restaurantsArr);
   }
 
-  console.log(barIndexed);
-  displayPlaces(restaurantIndexed, barIndexed, museumIndexed, beachIndexed, architectureIndexed,
-    accomodationIndexed, amusementIndexed, historicIndexed, natureIndexed, religionIndexed, sportsIndexed, shopsIndexed,
-    nightActivitiesIndexed, transportIndexed, cinemasIndexed);
+  var b = bars.slice();
+  for (let i = 0; i < 5; i++) {
+    var barsArr = b[Math.floor(Math.random() * b.length)];
+    var barsIndex = b.indexOf(barsArr);
+    b.splice(barsIndex, 1);
+    barIndexed.push(barsArr);
+  }
+
+  var m = museums.slice();
+  for (let i = 0; i < 5; i++) {
+    var museumsArr = m[Math.floor(Math.random() * m.length)];
+    var museumsIndex = m.indexOf(museumsArr);
+    m.splice(museumsIndex, 1);
+    museumIndexed.push(museumsArr);
+  }
+
+  var arc = architecture.slice();
+  for (let i = 0; i < 5; i++) {
+    var architectureArr = arc[Math.floor(Math.random() * arc.length)];
+    var architectureIndex = arc.indexOf(architectureArr);
+    arc.splice(architectureIndex, 1);
+    architectureIndexed.push(architectureArr);
+  }
+
+  var acc = accomodations.slice();
+  for (let i = 0; i < 5; i++) {
+    var accomodationsArr = acc[Math.floor(Math.random() * acc.length)];
+    var accomodationsIndex = acc.indexOf(accomodationsArr);
+    acc.splice(accomodationsIndex, 1);
+    accomodationIndexed.push(accomodationsArr);
+  }
+
+  var amu = amusement.slice();
+  for (let i = 0; i < 5; i++) {
+    var amusementArr = amu[Math.floor(Math.random() * amu.length)];
+    var amusementIndex = amu.indexOf(amusementArr);
+    amu.splice(amusementIndex, 1);
+    amusementIndexed.push(amusementArr);
+  }
+
+  var h = historic.slice();
+  for (let i = 0; i < 5; i++) {
+    var historicArr = h[Math.floor(Math.random() * h.length)];
+    var historicIndex = h.indexOf(historicArr);
+    h.splice(historicIndex, 1);
+    historicIndexed.push(historicArr);
+  }
+
+  var rel = religion.slice();
+  for (let i = 0; i < 5; i++) {
+    var religionArr = rel[Math.floor(Math.random() * rel.length)];
+    var religionIndex = rel.indexOf(religionArr);
+    rel.splice(religionIndex, 1);
+    religionIndexed.push(religionArr);
+  }
+
+  var s = sports.slice();
+  for (let i = 0; i < 5; i++) {
+    var sportsArr = s[Math.floor(Math.random() * s.length)];
+    var sportsIndex = s.indexOf(sportsArr);
+    s.splice(sportsIndex, 1);
+    sportsIndexed.push(sportsArr);
+  }
+
+  var sh = shops.slice();
+  for (let i = 0; i < 5; i++) {
+    var shopsArr = sh[Math.floor(Math.random() * sh.length)];
+    var shopsIndex = sh.indexOf(shopsArr);
+    sh.splice(shopsIndex, 1);
+    shopsIndexed.push(shopsArr);
+  }
+
+  var night = nightActivities.slice();
+  for (let i = 0; i < 5; i++) {
+    var nightActivitiesArr = night[Math.floor(Math.random() * night.length)];
+    var nightActivitiesIndex = night.indexOf(nightActivitiesArr);
+    night.splice(nightActivitiesIndex, 1);
+    nightActivitiesIndexed.push(nightActivitiesArr);
+  }
+
+  var t = transport.slice();
+  for (let i = 0; i < 5; i++) {
+    var transportArr = t[Math.floor(Math.random() * t.length)];
+    var transportIndex = t.indexOf(transportArr);
+    t.splice(transportIndex, 1);
+    transportIndexed.push(transportArr);
+  }
+
+  var c = cinemas.slice();
+  for (let i = 0; i < 5; i++) {
+    var cinemasArr = c[Math.floor(Math.random() * c.length)];
+    var cinemasIndex = c.indexOf(cinemasArr);
+    c.splice(cinemasIndex, 1);
+    cinemasIndexed.push(cinemasArr);
+  }
+
+  displayPlaces(
+    restaurantIndexed,
+    barIndexed,
+    museumIndexed,
+    architectureIndexed,
+    accomodationIndexed,
+    amusementIndexed,
+    historicIndexed,
+    religionIndexed,
+    sportsIndexed,
+    shopsIndexed,
+    nightActivitiesIndexed,
+    transportIndexed,
+    cinemasIndexed
+  );
 }
 
 // Function to display the lists that were selected through the checkboxes
-function displayPlaces(restaurantIndexed, barIndexed, museumIndexed, beachIndexed, architectureIndexed,
-  accomodationIndexed, amusementIndexed, historicIndexed, natureIndexed, religionIndexed, sportsIndexed, shopsIndexed,
-  nightActivitiesIndexed, transportIndexed, cinemasIndexed) {
+function displayPlaces(
+  restaurantIndexed,
+  barIndexed,
+  museumIndexed,
+  architectureIndexed,
+  accomodationIndexed,
+  amusementIndexed,
+  historicIndexed,
+  religionIndexed,
+  sportsIndexed,
+  shopsIndexed,
+  nightActivitiesIndexed,
+  transportIndexed,
+  cinemasIndexed
+) {
   // Select and display the lists
   var placesDisplay = document.querySelector("#places-display");
   placesDisplay.removeAttribute("hidden");
 
   //// Create Restaurant list
-    var restaurantDivEl = document.querySelector(".restaurant-list");
-    var restaurantUlEl = document.createElement("ul");
+  var restaurantDivEl = document.querySelector(".restaurant-list");
+  restaurantDivEl.innerHTML = "";
+  var restaurantUlEl = document.createElement("ul");
+  if (restaurantIndexed.includes(undefined)) {
+    var restaurantLiEl = document.createElement("li");
+    restaurantLiEl.setAttribute("class", "li-styling");
+    restaurantLiEl.textContent = "Nothing to Display Here";
+    restaurantUlEl.append(restaurantLiEl);
+    restaurantDivEl.append(restaurantUlEl);
+  } else {
     for (let i = 0; i < restaurantIndexed.length; i++) {
       var restaurantLiEl = document.createElement("li");
+      restaurantLiEl.setAttribute("class", "li-styling");
       restaurantLiEl.textContent = restaurantIndexed[i].properties.name;
       restaurantUlEl.append(restaurantLiEl);
     }
     restaurantDivEl.append(restaurantUlEl);
+  }
 
   //// Create bar list
-
   var barDivEl = document.querySelector(".bar-list");
+  barDivEl.innerHTML = "";
   var barUlEl = document.createElement("ul");
-  for (let i = 0; i < barIndexed.length; i++) {
+  if (barIndexed.includes(undefined)) {
     var barLiEl = document.createElement("li");
-    barLiEl.textContent = barIndexed[i].properties.name;
+    barLiEl.setAttribute("class", "li-styling");
+    barLiEl.textContent = "Nothing to Display Here";
     barUlEl.append(barLiEl);
+    barDivEl.append(barUlEl);
+  } else {
+    for (let i = 0; i < barIndexed.length; i++) {
+      var barLiEl = document.createElement("li");
+      barLiEl.setAttribute("class", "li-styling");
+      barLiEl.textContent = barIndexed[i].properties.name;
+      barUlEl.append(barLiEl);
+    }
+    barDivEl.append(barUlEl);
   }
-  barDivEl.append(barUlEl);
-
 
   //// Create museum list
-
-  var museumDivEl = document.querySelector(".museum-list");
+  var museumDivEl = document.querySelector(".cultural-list");
+  museumDivEl.innerHTML = "";
   var museumUlEl = document.createElement("ul");
-  for (let i = 0; i < museumIndexed.length; i++) {
+  if (museumIndexed.includes(undefined)) {
     var museumLiEl = document.createElement("li");
-    museumLiEl.textContent = museumIndexed[i].properties.name;
+    museumLiEl.setAttribute("class", "li-styling");
+    museumLiEl.textContent = "Nothing to Display Here";
     museumUlEl.append(museumLiEl);
+  } else {
+    for (let i = 0; i < museumIndexed.length; i++) {
+      var museumLiEl = document.createElement("li");
+      museumLiEl.setAttribute("class", "li-styling");
+      museumLiEl.textContent = museumIndexed[i].properties.name;
+      museumUlEl.append(museumLiEl);
+    }
   }
   museumDivEl.append(museumUlEl);
 
-
-  //// Create Beach List
-
-  var beachDivEl = document.querySelector(".beach-list");
-  var beachUlEl = document.createElement("ul");
-  for (let i = 0; i < beachIndexed.length; i++) {
-    var beachLiEl = document.createElement("li");
-    beachLiEl.textContent = beachIndexed[i].properties.name;
-    beachUlEl.append(beachLiEl);
-  }
-  beachDivEl.append(beachUlEl);
-  return;
-
-
   //// Create Architecture list
   var architectureDivEl = document.querySelector(".architecture-list");
+  architectureDivEl.innerHTML = "";
   var architectureUlEl = document.createElement("ul");
-  for (let i = 0; i < architectureIndexed.length; i++) {
+  if (architectureIndexed.includes(undefined)) {
     var architectureLiEl = document.createElement("li");
-    architectureLiEl.textContent = architectureIndexed[i].properties.name;
+    architectureLiEl.setAttribute("class", "li-styling");
+    architectureLiEl.textContent = "Nothing to Display Here";
     architectureUlEl.append(architectureLiEl);
+    architectureDivEl.append(architectureUlEl);
+  } else {
+    for (let i = 0; i < architectureIndexed.length; i++) {
+      var architectureLiEl = document.createElement("li");
+      architectureLiEl.setAttribute("class", "li-styling");
+      architectureLiEl.textContent = architectureIndexed[i].properties.name;
+      architectureUlEl.append(architectureLiEl);
+    }
+    architectureDivEl.append(architectureUlEl);
   }
-  architectureDivEl.append(architectureUlEl);
 
   //// Create accomodations list
-  var accomodationDivEl = document.querySelector(".accomodation-list");
+  var accomodationDivEl = document.querySelector(".accomodations-list");
+  accomodationDivEl.innerHTML = "";
   var accomodationUlEl = document.createElement("ul");
-  for (let i = 0; i < accomodationIndexed.length; i++) {
+  if (accomodationIndexed.includes(undefined)) {
     var accomodationLiEl = document.createElement("li");
-    accomodationLiEl.textContent = accomodationIndexed[i].properties.name;
+    accomodationLiEl.setAttribute("class", "li-styling");
+    accomodationLiEl.textContent = "Nothing to Display Here";
     accomodationUlEl.append(accomodationLiEl);
+    accomodationDivEl.append(accomodationUlEl);
+  } else {
+    for (let i = 0; i < accomodationIndexed.length; i++) {
+      var accomodationLiEl = document.createElement("li");
+      accomodationLiEl.setAttribute("class", "li-styling");
+      accomodationLiEl.textContent = accomodationIndexed[i].properties.name;
+      accomodationUlEl.append(accomodationLiEl);
+    }
+    accomodationDivEl.append(accomodationUlEl);
   }
-  accomodationDivEl.append(accomodationUlEl);
 
   //// Create amusement list
   var amusementDivEl = document.querySelector(".amusement-list");
+  amusementDivEl.innerHTML = "";
   var amusementUlEl = document.createElement("ul");
-  for (let i = 0; i < amusementIndexed.length; i++) {
+  if (amusementIndexed.includes(undefined)) {
     var amusementLiEl = document.createElement("li");
-    amusementLiEl.textContent = amusementIndexed[i].properties.name;
+    amusementLiEl.setAttribute("class", "li-styling");
+    amusementLiEl.textContent = "Nothing to Display Here";
     amusementUlEl.append(amusementLiEl);
+    amusementDivEl.append(amusementUlEl);
+  } else {
+    for (let i = 0; i < amusementIndexed.length; i++) {
+      var amusementLiEl = document.createElement("li");
+      amusementLiEl.setAttribute("class", "li-styling");
+      amusementLiEl.textContent = amusementIndexed[i].properties.name;
+      amusementUlEl.append(amusementLiEl);
+    }
+    amusementDivEl.append(amusementUlEl);
   }
-  amusementDivEl.append(amusementUlEl);
 
   //// Create historic list
   var historicDivEl = document.querySelector(".historic-list");
+  historicDivEl.innerHTML = "";
   var historicUlEl = document.createElement("ul");
-  for (let i = 0; i < historicIndexed.length; i++) {
+  if (historicIndexed.includes(undefined)) {
     var historicLiEl = document.createElement("li");
-    historicLiEl.textContent = historicIndexed[i].properties.name;
+    historicLiEl.setAttribute("class", "li-styling");
+    historicLiEl.textContent = "Nothing to Display Here";
     historicUlEl.append(historicLiEl);
+    historicDivEl.append(historicUlEl);
+  } else {
+    for (let i = 0; i < historicIndexed.length; i++) {
+      var historicLiEl = document.createElement("li");
+      historicLiEl.setAttribute("class", "li-styling");
+      historicLiEl.textContent = historicIndexed[i].properties.name;
+      historicUlEl.append(historicLiEl);
+    }
+    historicDivEl.append(historicUlEl);
   }
-  historicDivEl.append(historicUlEl);
-
-  //// Create Nature list
-  var natureDivEl = document.querySelector(".nature-list");
-  var natureUlEl = document.createElement("ul");
-  for (let i = 0; i < natureIndexed.length; i++) {
-    var natureLiEl = document.createElement("li");
-    natureLiEl.textContent = natureIndexed[i].properties.name;
-    natureUlEl.append(natureLiEl);
-  }
-  natureDivEl.append(natureUlEl);
 
   //// Create Religion list
   var religionDivEl = document.querySelector(".religion-list");
+  religionDivEl.innerHTML = "";
   var religionUlEl = document.createElement("ul");
-  for (let i = 0; i < religionIndexed.length; i++) {
+  if (religionIndexed.includes(undefined)) {
     var religionLiEl = document.createElement("li");
-    religionLiEl.textContent = religionIndexed[i].properties.name;
+    religionLiEl.setAttribute("class", "li-styling");
+    religionLiEl.textContent = "Nothing to Display Here";
     religionUlEl.append(religionLiEl);
+    religionDivEl.append(religionUlEl);
+  } else {
+    for (let i = 0; i < religionIndexed.length; i++) {
+      var religionLiEl = document.createElement("li");
+      religionLiEl.setAttribute("class", "li-styling");
+      religionLiEl.textContent = religionIndexed[i].properties.name;
+      religionUlEl.append(religionLiEl);
+    }
+    religionDivEl.append(religionUlEl);
   }
-  religionDivEl.append(religionUlEl);
 
   //// Create Sports list
   var sportsDivEl = document.querySelector(".sports-list");
+  sportsDivEl.innerHTML = "";
   var sportsUlEl = document.createElement("ul");
-  for (let i = 0; i < sportsIndexed.length; i++) {
+  if (sportsIndexed.includes(undefined)) {
     var sportsLiEl = document.createElement("li");
-    sportsLiEl.textContent = sportsIndexed[i].properties.name;
+    sportsLiEl.setAttribute("class", "li-styling");
+    sportsLiEl.textContent = "Nothing to Display Here";
     sportsUlEl.append(sportsLiEl);
+    sportsDivEl.append(sportsUlEl);
+  } else {
+    for (let i = 0; i < sportsIndexed.length; i++) {
+      var sportsLiEl = document.createElement("li");
+      sportsLiEl.setAttribute("class", "li-styling");
+      sportsLiEl.textContent = sportsIndexed[i].properties.name;
+      sportsUlEl.append(sportsLiEl);
+    }
+    sportsDivEl.append(sportsUlEl);
   }
-  sportsDivEl.append(sportsUlEl);
 
   //// Create Shops List
   var shopsDivEl = document.querySelector(".shops-list");
+  shopsDivEl.innerHTML = "";
   var shopsUlEl = document.createElement("ul");
-  for (let i = 0; i < shopsIndexed.length; i++) {
+  if (shopsIndexed.includes(undefined)) {
     var shopsLiEl = document.createElement("li");
-    shopsLiEl.textContent = shopsIndexed[i].properties.name;
+    shopsLiEl.setAttribute("class", "li-styling");
+    shopsLiEl.textContent = "Nothing to Display Here";
     shopsUlEl.append(shopsLiEl);
+    shopsDivEl.append(shopsUlEl);
+  } else {
+    for (let i = 0; i < shopsIndexed.length; i++) {
+      var shopsLiEl = document.createElement("li");
+      shopsLiEl.setAttribute("class", "li-styling");
+      shopsLiEl.textContent = shopsIndexed[i].properties.name;
+      shopsUlEl.append(shopsLiEl);
+    }
+    shopsDivEl.append(shopsUlEl);
   }
-  shopsDivEl.append(shopsUlEl);
 
   //// Create Night Lift list
   var nightActivitiesDivEl = document.querySelector(".nightActivities-list");
+  nightActivitiesDivEl.innerHTML = "";
   var nightActivitiesUlEl = document.createElement("ul");
-  for (let i = 0; i < nightActivitiesIndexed.length; i++) {
+  if (nightActivitiesIndexed.includes(undefined)) {
     var nightActivitiesLiEl = document.createElement("li");
-    nightActivitiesLiEl.textContent = nightActivitiesIndexed[i].properties.name;
+    nightActivitiesLiEl.setAttribute("class", "li-styling");
+    nightActivitiesLiEl.textContent = "Nothing to Display Here";
     nightActivitiesUlEl.append(nightActivitiesLiEl);
+    nightActivitiesDivEl.append(nightActivitiesUlEl);
+  } else {
+    for (let i = 0; i < nightActivitiesIndexed.length; i++) {
+      var nightActivitiesLiEl = document.createElement("li");
+      nightActivitiesLiEl.setAttribute("class", "li-styling");
+      nightActivitiesLiEl.textContent =
+        nightActivitiesIndexed[i].properties.name;
+      nightActivitiesUlEl.append(nightActivitiesLiEl);
+    }
+    nightActivitiesDivEl.append(nightActivitiesUlEl);
   }
-  nightActivitiesDivEl.append(nightActivitiesUlEl);
 
   //// Create transport list
   var transportDivEl = document.querySelector(".transport-list");
+  transportDivEl.innerHTML = "";
   var transportUlEl = document.createElement("ul");
-  for (let i = 0; i < transportIndexed.length; i++) {
+  if (transportIndexed.includes(undefined, "")) {
     var transportLiEl = document.createElement("li");
-    transportLiEl.textContent = transportIndexed[i].properties.name;
+    transportLiEl.setAttribute("class", "li-styling");
+    transportLiEl.textContent = "Nothing to Display Here";
     transportUlEl.append(transportLiEl);
+    transportDivEl.append(transportUlEl);
+  } else {
+    for (let i = 0; i < transportIndexed.length; i++) {
+      var transportLiEl = document.createElement("li");
+      transportLiEl.setAttribute("class", "li-styling");
+      transportLiEl.textContent = transportIndexed[i].properties.name;
+      transportUlEl.append(transportLiEl);
+    }
+    transportDivEl.append(transportUlEl);
   }
-  transportDivEl.append(transportUlEl);
 
   //// Create cinemas list
-  var cinemasDivEl = document.querySelector(".cinemas-list");
+  var cinemasDivEl = document.querySelector(".movie-list");
+  cinemasDivEl.innerHTML = "";
   var cinemasUlEl = document.createElement("ul");
-  for (let i = 0; i < cinemasIndexed.length; i++) {
+  if (cinemasIndexed.includes(undefined)) {
     var cinemasLiEl = document.createElement("li");
-    cinemasLiEl.textContent = cinemasIndexed[i].properties.name;
+    cinemasLiEl.setAttribute("class", "li-styling");
+    cinemasLiEl.textContent = "Nothing to Display Here";
     cinemasUlEl.append(cinemasLiEl);
+    cinemasDivEl.append(cinemasUlEl);
+  } else {
+    for (let i = 0; i < cinemasIndexed.length; i++) {
+      var cinemasLiEl = document.createElement("li");
+      cinemasLiEl.setAttribute("class", "li-styling");
+      cinemasLiEl.textContent = cinemasIndexed[i].properties.name;
+      cinemasUlEl.append(cinemasLiEl);
+    }
+    cinemasDivEl.append(cinemasUlEl);
   }
-  cinemasDivEl.append(cinemasUlEl);
 }
 
 //Create the google map with the lat and lng from getGeolocation()
@@ -441,7 +598,7 @@ function initMap(searchValue, lat, lng) {
   const myLatLng = { lat, lng };
   console.log(myLatLng);
   const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
+    zoom: 10,
     center: myLatLng,
   });
   new google.maps.Marker({
@@ -460,9 +617,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Eventlistner on the searchbutton
 searchBtn.addEventListener("click", getSearchValue);
-
-//TODO:
-//cards popping up on the side
-//create actual cards
-//tie to button click
-

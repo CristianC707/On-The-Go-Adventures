@@ -40,8 +40,8 @@
       <!--Image slideshow-->
       <div class="container-fluid">
         <div class="row">
-          <div class="slider" style="height: 500px;">
-            <ul class="slides" style="height: 500px;">
+          <div class="slider">
+            <ul class="slides">
               <li>
                 <img src="./assets/images/clear-water.jpg"> <!-- random image -->
                 <div class="caption center-align">
@@ -51,14 +51,14 @@
               </li>
               <li>
                 <img src="./assets/images/hotair-balloons.jpg"> <!-- random image -->
-                <div class="caption left-align">
+                <div class="caption center-align">
                   <h2>Life is a gift. Wake up every morning and realize that!</h2>
                   <h5 class="light grey-text text-lighten-3">Raise your head and enjoy.</h5>
                 </div>
               </li>
               <li>
                 <img src="./assets/images/antartica.jpg"> <!-- random image -->
-                <div class="caption right-align">
+                <div class="caption center-align">
                   <h2>Happiness is right around the corner.</h2>
                   <h5 class="light grey-text text-lighten-3">Don't miss it!</h5>
                 </div>
@@ -82,11 +82,22 @@
             <div class="msg"></div>
             <div class="input-container">
               <input type="search" placeholder="Enter destination" class="col s10 m10" id="input">
-              <div class="btn waves-effect waves-light btn" type="button" id="search-destination"><i class="fas fa-search"></i></div>                      
+              <div class="btn waves-effect waves-light" type="button" id="search-destination"><i class="fas fa-search"></i></div>                
+            </div>
+            
+            <!-- Previous Searches where localstorage will be displayed -->
+            <div class="col s4 m3">
+              <ul class="collapsible">
+                <li>
+                  <div class="collapsible-header custom-previous-search-header"><i class="material-icons">location_on</i>Previous Searches</div>
+                  <div id="previous-searches" class="collapsible-body custom-collapsible-body"></div>
+                </li>
+              </ul>   
             </div>
             
             <!--check boxes-->
-            <form action="#" class="checkboxes">                      
+            <form action="#" class="checkboxes">     
+                               
               <div class="row" id="checkbox">
                 <h4 class="col s10" id="checkbox-header">What interest you?</h4>
                 <div class="checkbox-msg col s12"></div>
@@ -111,8 +122,8 @@
                   </p>
                   <p>
                     <label>
-                      <input id="beaches-checkbox" type="checkbox" name="checkbox" value="beaches"/>
-                      <span class="grey-text text-darken-3">Beaches</span>
+                      <input id="shops-checkbox" type="checkbox" name="checkbox" value="shops"/>
+                      <span class="grey-text text-darken-3">Shops</span>
                     </label>
                   </p>
                 </div>
@@ -135,18 +146,12 @@
                       <span class="grey-text text-darken-3">Amusement</span>
                     </label>
                   </p>
-                  <p>
-                    <label>
-                      <input id="historic-checkbox" type="checkbox" name="checkbox" value="historic"/>
-                      <span class="grey-text text-darken-3">Historic</span>
-                    </label>
-                  </p>
                 </div>
                 <div class="col s6 m3">
                   <p>
                     <label>
-                      <input id="nature-checkbox" type="checkbox" name="checkbox" value="geological_formations,natural_springs,nature_reserves,water"/>
-                      <span class="grey-text text-darken-3">Nature</span>
+                      <input id="historic-checkbox" type="checkbox" name="checkbox" value="historic"/>
+                      <span class="grey-text text-darken-3">Historic</span>
                     </label>
                   </p>
                   <p>
@@ -159,12 +164,6 @@
                     <label>
                       <input id="sports-checkbox" type="checkbox" name="checkbox" value="sport"/>
                       <span class="grey-text text-darken-3">Sports</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input id="shops-checkbox" type="checkbox" name="checkbox" value="shops"/>
-                      <span class="grey-text text-darken-3">Shops</span>
                     </label>
                   </p>
                 </div>
@@ -202,7 +201,11 @@
               </div>
               
               <!--place card in 'card' div, add 'hide' to places div-->
+
+              <div id="places-display" class="places" hidden>
+
               <div class="places">
+
                 <div class="col s12 m4 l4">
                   <!--places list-->
                   <ul class="collapsible popout">                    
@@ -217,11 +220,15 @@
                       <li>
                         <div class="collapsible-header"><i class="material-icons">place</i>Cultural<i class="material-icons col">expand_more</i></div>
                         <div class="collapsible-body cultural-list"></div>
+
+                      </li>                                      
+
                       </li>                    
                       <li>
                         <div class="collapsible-header"><i class="material-icons">beach_access</i>Beaches<i class="material-icons col">expand_more</i></div>
                         <div class="collapsible-body beach-list"></div>
                       </li>                    
+
                       <li>
                         <div class="collapsible-header"><i class="material-icons">park</i>Nature<i class="material-icons col">expand_more</i></div>
                         <div class="collapsible-body nature-list"></div>
@@ -244,7 +251,11 @@
                       </li>                    
                       <li>
                         <div class="collapsible-header"><i class="material-icons">hotel</i>Hotel/Resort<i class="material-icons col">expand_more</i></div>
+
+                        <div class="collapsible-body accomodations-list"></div>
+
                         <div class="collapsible-body accommidations-list"></div>
+
                       </li>                    
                       <li>
                         <div class="collapsible-header"><i class="material-icons">attractions</i>Amusement<i class="material-icons col">expand_more</i></div>
@@ -256,7 +267,11 @@
                       </li>                    
                       <li>
                         <div class="collapsible-header"><i class="material-icons">nightlife</i>Night life<i class="material-icons col">expand_more</i></div>
+
+                        <div class="collapsible-body nightActivities-list"></div>
+
                         <div class="collapsible-body nightactivities-list"></div>
+
                       </li>                    
                       <li>
                         <div class="collapsible-header"><i class="material-icons">commute</i>Transport<i class="material-icons col">expand_more</i></div>
