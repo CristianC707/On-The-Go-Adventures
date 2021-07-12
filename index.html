@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!--googlefonts for header-->
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!--materialize icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--materialize css-->
@@ -208,7 +209,7 @@
 
                 <div class="col s12 m4 l4">
                   <!--places list-->
-                  <ul class="collapsible popout">                    
+                  <ul id="places" class="collapsible popout">                    
                       <li>
                         <div class="collapsible-header"><i class="material-icons">restaurant</i>Restaurants<i class="material-icons col">expand_more</i></div>
                         <div class="collapsible-body restaurant-list"></div>
@@ -221,6 +222,7 @@
                         <div class="collapsible-header"><i class="material-icons">place</i>Cultural<i class="material-icons col">expand_more</i></div>
                         <div class="collapsible-body cultural-list"></div>
 
+                      </li>                                                          
                       </li>                                      
 
                       </li>                    
@@ -295,6 +297,9 @@
       </div>
     </main>
 
+    <footer class="">
+      <p><a href="https://github.com/CristianC707/On-The-Go-Adventures">On The Go Adventures</a> &copy; 2021</p>
+    </footer>
 
     <!--google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3Bki2vXaNQSPf7QpnYstYXwZs0yc3Fdo&libraries=&v=weekly" async ></script>
